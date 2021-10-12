@@ -102,6 +102,7 @@ class Channel(AbstractChannel):
         channel: aiormq.abc.AbstractChannel = self._channel
         del self._channel
         self._is_closed_by_user = True
+        channel.on_return_callbacks.remove(self._on_return)
         await channel.close()
 
     @property
